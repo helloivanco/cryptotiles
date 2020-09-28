@@ -1,13 +1,34 @@
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
+
+import Alert from 'react-bootstrap/Alert';
 import CardColumns from 'react-bootstrap/CardColumns';
 import Card from 'react-bootstrap/Card';
 
 import CoinGecko from 'coingecko-api';
+
 const coinGeckoClient = new CoinGecko();
 
-export default function Home(props) {
-  const { data } = props.result;
+const params = {
+  vs_currency: 'usd',
+  ids: [
+    'bitcoin',
+    'ethereum',
+    'polkadot',
+    'bitcoin-cash',
+    'basic-attention-token',
+    'cosmos',
+    'uniswap',
+    'icon',
+    'kyber-network',
+    'nervos-network',
+    'terra-luna',
+    'crypto-com-chain',
+  ],
+  order: 'volume_desc',
+};
 
+export default function Home() {
   const formatPercent = (number) => `${new Number(number).toFixed(2)}%`;
 
   const formatDollar = (number, maximumSignificantDigits) =>
@@ -17,6 +38,20 @@ export default function Home(props) {
       maximumSignificantDigits,
     }).format(number);
 
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    async function gecko() {
+      let response = await coinGeckoClient.coins.markets(params);
+      setData(response.data);
+    }
+
+    gecko();
+  }, []);
+
+  if (!data) {
+    return <Alert variant='light'>loading...</Alert>;
+  }
   return (
     <div>
       <Head>
@@ -52,31 +87,4 @@ export default function Home(props) {
       </CardColumns>
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  const params = {
-    vs_currency: 'usd',
-    ids: [
-      'bitcoin',
-      'ethereum',
-      'polkadot',
-      'bitcoin-cash',
-      'basic-attention-token',
-      'cosmos',
-      'uniswap',
-      'icon',
-      'kyber-network',
-      'nervos-network',
-      'terra-luna',
-      'crypto-com-chain',
-    ],
-    order: 'volume_desc',
-  };
-  const result = await coinGeckoClient.coins.markets(params);
-  return {
-    props: {
-      result,
-    },
-  };
 }
