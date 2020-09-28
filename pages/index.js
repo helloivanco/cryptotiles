@@ -54,7 +54,7 @@ export default function Home(props) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const params = {
     vs_currency: 'usd',
     ids: [
