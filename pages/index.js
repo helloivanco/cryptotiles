@@ -7,6 +7,8 @@ import CardColumns from "react-bootstrap/CardColumns";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 
+import { MdRefresh } from "react-icons/md";
+
 import CoinGecko from "coingecko-api";
 const coinGeckoClient = new CoinGecko();
 
@@ -123,7 +125,8 @@ export default function Home() {
 		{
 			baseCurrency != "USD" && <div className="fixed-bottom text-right mb-2">
 					<h3>
-						<Badge pill="pill" variant="secondary" onClick={() => switchBase( 'USD', 'USD', 1 )}>Reset to USD</Badge>
+						<Badge pill="pill" variant="primary" onClick={() => switchBase( 'USD', 'USD', 1 )}><MdRefresh/> {baseSymbol.toUpperCase()}{' '}
+							Selected</Badge>
 					</h3>
 				</div>
 		}
