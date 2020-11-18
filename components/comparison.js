@@ -116,7 +116,8 @@ export default function Comparison( props ) {
 				? ( <div>
 					<h5>
 						<Badge pill="pill" variant="primary">
-							Selected Base: {baseSymbol.toUpperCase()}
+							{baseSymbol.toUpperCase()}{' '}
+							Selected
 						</Badge>
 					</h5>
 					<p>day {displayNA( dataBase[ 6 ] )}%</p>
