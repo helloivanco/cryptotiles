@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
 
 import Alert from "react-bootstrap/Alert";
@@ -7,7 +7,7 @@ import CardColumns from "react-bootstrap/CardColumns";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 
-import { MdRefresh } from "react-icons/md";
+import {MdRefresh} from "react-icons/md";
 
 import CoinGecko from "coingecko-api";
 const coinGeckoClient = new CoinGecko();
@@ -106,7 +106,7 @@ export default function Home() {
                   />
                 </a>
                 <h1 className="mt-2">
-                  {coin.symbol.toUpperCase()}
+                  {coin.symbol.toUpperCase()}{" "}
                   {formatDollar(coin.current_price, 20)}
                 </h1>
                 <h3>
